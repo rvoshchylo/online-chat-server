@@ -26,6 +26,9 @@ io.on('connection', (socket) => {
 
     if (isUserExist) {
       socket.emit('error', 'User with this name already exists in the room');
+      socket.broadcast.to(room).emit('message', {
+        data: {user: {name: ADMIN, message: `Someone tried to join with the name ${name}`}}
+      });
     }
   });
 
